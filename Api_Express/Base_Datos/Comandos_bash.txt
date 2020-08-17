@@ -1,0 +1,5 @@
+Para iniciar contenedor con Servidor de Base de Datos MySqL
+./start_mysql.sh mysql-net "$PWD"/database
+
+Para Iniciar contenedor Docker con administrador de Base de Datos MySql
+./run_phpadmin.sh mysql-net mysql-server 8085

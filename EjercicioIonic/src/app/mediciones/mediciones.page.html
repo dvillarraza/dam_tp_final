@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color = "tertiary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title >LISTA DE MEDICIONES</ion-title>
+    <div *ngIf="this.dispositivo !=null">
+      <ion-title size="small">{{this.dispositivo.nombre}}</ion-title>
+      <ion-title size ="small"> Ubicacion: {{this.dispositivo.ubicacion}} </ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="this.mediciones !=null"> 
+    <ion-row style="border-bottom: groove; background-color: lightgrey;">
+    <ion-col col-4>
+      <ion-label >FECHA</ion-label>
+    </ion-col>
+    <ion-col col-4>
+      <ion-label >HUMEDAD TIERRA [Kpa]</ion-label>
+    </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let med of this.mediciones" style="border-bottom: groove;">
+      <ion-col col-4>
+        {{med.fecha | date: 'd/M/yy, h:mm a' }}
+      </ion-col>
+      <ion-col col-4>
+        {{med.valor}}
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>
+

@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color = "secondary">
+  <!--  <ion-title>dispositivo</ion-title>-->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home">
+      </ion-back-button>
+    </ion-buttons>
+    <div *ngIf="this.dispositivo !=null">
+      <ion-title>{{this.dispositivo.nombre}}
+      </ion-title>
+      <ion-title size ="small"> Ubicacion: {{this.dispositivo.ubicacion}} </ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <br>
+  <div id="highcharts" style="width:100%; height:300px;"></div>
+  <br>
+
+  <div *ngIf="((this.electrovalvula !=null) && (this.riego !=null))">
+    <!-- <ion-label [appDirectivaAtributo]="red" > La electrovalvula del: {{this.electrovalvula.nombre}} esta: {{this.riego.apertura}} </ion-label> -->
+    <div *ngIf = "((this.valorObtenido >= 0) && (this.valorObtenido < 10))" >
+      <div style="background-color: green; color: white;text-align: center;"> SUELO SATURADO </div>
+    </div>
+    <div *ngIf = "((this.valorObtenido >= 10) && (this.valorObtenido < 30))">
+      <div style="background-color: yellow; color: black; text-align: center;" > SUELO EN CAPACIDAD DE CAMPO </div>
+    </div>
+    <div *ngIf = "(this.valorObtenido >= 30)">
+      <div style="background-color: red; color: white; text-align: center;"> SUELO SECO </div>
+    </div>
+  </div>
+
+  <br>
+  <ion-button *ngIf="((this.electrovalvula) !=null && (this.riego !=null))"
+                  fill = "outline"
+                  expand = "block" 
+                  (click) = "CambiarEstadoElectrovalvula(this.electrovalvula.electrovalvulaId)"
+                  [appDirectivaAtributo]>
+                  {{this.riego.apertura | myPipe:['ABRIR ELECTROVALVULA','CERRAR ELECTROVALVULA']}}</ion-button>
+
+  <ion-button *ngIf="this.dispositivo !=null" 
+                  fill = "outline" 
+                  expand = "block" 
+                  [routerLink] = "['/mediciones',this.dispositivo.dispositivoId]" 
+                  [appDirectivaAtributo]>
+                  VER TODAS LAS MEDICIONES</ion-button>
+
+  <ion-button  *ngIf="this.electrovalvula !=null" 
+                  fill = "outline"
+                  expand = "block"
+                  [routerLink] = "['/riegos',this.electrovalvula.electrovalvulaId]"
+                  [appDirectivaAtributo]>
+                  VER LOG DE RIEGOS</ion-button>
+</ion-content>
+

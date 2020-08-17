@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color = "tertiary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title >LOG DE RIEGOS</ion-title>
+    <div *ngIf="this.electrovalvula !=null">
+      <ion-title size="small">Electrovalvula: {{this.electrovalvula.nombre}}</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="this.riegos !=null"> 
+    <ion-row style="border-bottom: groove; background-color: lightgrey;">
+    <ion-col col-4>
+      <ion-label >FECHA</ion-label>
+    </ion-col>
+    <ion-col col-4>
+      <ion-label >ESTADO</ion-label>
+    </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let rg of this.riegos" style="border-bottom: groove;">
+      <ion-col col-4>
+        {{rg.fecha | date: 'd/M/yy, h:mm a' }}
+      </ion-col>
+      <ion-col col-4>
+        {{rg.apertura | myPipe:['CERRADA','ABIERTA']}}
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>
