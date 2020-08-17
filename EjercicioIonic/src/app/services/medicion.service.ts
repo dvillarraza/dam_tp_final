@@ -9,7 +9,7 @@ export class MedicionService {
 
   constructor(private _http:HttpClient) { }
 
-
+//Obtengo la medicion mas reciente del dispositivo con dispositivoId=paramDispositivoId
 getMedicionByDispositivoId(paramDispoitivoId):Promise<Medicion>{
     return this._http.get("http://localhost:3000/api/medicion/"+paramDispoitivoId).toPromise().then((objeto:Medicion)=>{
         return objeto;
@@ -19,6 +19,7 @@ getMedicionByDispositivoId(paramDispoitivoId):Promise<Medicion>{
     });
 }
 
+//Obtengo todas las mediciones del dispositivo con dispositivoId=paramDispositivoId
 getMedicionesByDispositivoId(paramDispoitivoId):Promise<Medicion[]>{
     return this._http.get("http://localhost:3000/api/medicion/todas/"+paramDispoitivoId).toPromise().then((objeto:Medicion[])=>{
         return objeto;
@@ -28,6 +29,7 @@ getMedicionesByDispositivoId(paramDispoitivoId):Promise<Medicion[]>{
     });
 }
 
+//Insterto una nueva medicion 
 setMedicionByDispositivoId(paramMedicion:Medicion){
   return this._http.post("http://localhost:3000/api/medicion/",
     {dispositivoId:paramMedicion.dispositivoId, fecha:paramMedicion.fecha, valor:paramMedicion.valor}).toPromise().then(result=>{

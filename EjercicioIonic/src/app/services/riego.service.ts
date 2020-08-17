@@ -9,8 +9,8 @@ export class RiegoService {
 
   constructor(private _http:HttpClient) { }
 
+  //Obtengo el riego mas reciente de la electrovalvula con electrovalvulaId=paramElectrovalvulaId
   getRiegoByElectrovalvulaId(paramElectrovalvulaId):Promise<Riego>{
-    //  return this.dispositivos.find(dispositivo => dispositivo.dispositivoId == paramId)
       return this._http.get("http://localhost:3000/api/riego/"+paramElectrovalvulaId).toPromise().then((objeto:Riego)=>{
           return objeto;
       }).catch((err)=>{
@@ -19,8 +19,8 @@ export class RiegoService {
       });
   }
   
+  //Obtengo todos los riegos de la electrovalvula con electrovalvulaId=paramElectrovalvulaId
   getRiegosByElectrovalvulaId(paramElectrovalvulaId):Promise<Riego[]>{
-    //  return this.dispositivos.find(dispositivo => dispositivo.dispositivoId == paramId)
       return this._http.get("http://localhost:3000/api/riego/todos/"+paramElectrovalvulaId).toPromise().then((objeto:Riego[])=>{
           return objeto;
       }).catch((err)=>{
@@ -28,7 +28,8 @@ export class RiegoService {
           return null;
       });
   }
-  
+
+  //Insterto un nuevo riego
   setRiegoByElectrovalvulaId(paramElectrovalvula:Riego){
     return this._http.post("http://localhost:3000/api/riego/",
       {electrovalvulaId:paramElectrovalvula.electrovalvulaId, fecha:paramElectrovalvula.fecha, apertura:paramElectrovalvula.apertura}).toPromise().then(result=>{

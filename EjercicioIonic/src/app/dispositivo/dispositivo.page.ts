@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Dispositivo } from '../model/Dispositivo';
+import { Medicion } from '../model/Medicion';
+import { Electrovalvula } from '../model/Electrovalvula';
+import { Riego } from '../model/Riego'
 import { DispositivoService } from '../services/dispositivo.service';
 import { MedicionService } from '../services/medicion.service';
 import { ElectrovalvulaService } from '../services/electrovalvula.service';
 import { RiegoService } from '../services/riego.service';
-import { Medicion } from '../model/Medicion';
-import { Electrovalvula } from '../model/Electrovalvula';
-import { Riego } from '../model/Riego'
 import * as moment from 'moment';
 import * as Highcharts from 'highcharts';
 declare var require: any;
@@ -26,12 +26,9 @@ export class DispositivoPage implements OnInit {
   public electrovalvula:Electrovalvula;
   public medicion:Medicion;
   public mediciones:Medicion[];
-  public riego:Riego = new Riego(99,"",0,0);
+  public riego:Riego;
 
-  public muestraMedicion:boolean;
-  public muestraMediciones:boolean;
-
-  public valormed: number = 0; //Usado en el DOM para hacer una interpolacion
+  //public valormed: number = 0; //Usado en el DOM para hacer una interpolacion
 
   public valorObtenido:number=0;
   public myChart;
@@ -45,120 +42,50 @@ export class DispositivoPage implements OnInit {
     private eServ:ElectrovalvulaService,
     private rServ:RiegoService) {
 
-   /* setTimeout(()=>{
-      console.log("Cambio el valor del sensor");
-      //this.valorObtenido=60;
-      let idDispositivo = this.router.snapshot.paramMap.get('id');
-
-      this.mServ.getMedicionByDispositivoId(idDispositivo).then(med=>{
-          console.log(med.valor);
-          this.valorObtenido = Number(med.valor);
-          //this.muestraMedicion = true;
-          //llamo al update del chart para refrescar y mostrar el nuevo valor
-          this.myChart.update({series: [{
-            name: 'kPA',
-            data: [this.valorObtenido],
-            tooltip: {
-              valueSuffix: ' kPA'
-              }
-            }]
-          })
-      });
-
-    },2000);*/
-
 
    }
 
   ngOnInit() {
+
     let idDispositivo = this.router.snapshot.paramMap.get('id');
 
     this.dServ.getDispositivoById(idDispositivo).then((disp)=>{
       this.dispositivo = disp[0]; //Se carga el dispositivo cuando llega la respuesta desde el backend
-      console.log("Nombre del Dispositivo:" + this.dispositivo.dispositivoId);
+     // console.log("Nombre del Dispositivo:" + this.dispositivo.dispositivoId);
       //this.NombreSensor = this.dispositivo.nombre;//disp[0].nombre;
-      console.log("El ID de la electro es:" + this.dispositivo.electrovalvulaId);
+     // console.log("El ID de la electro es:" + this.dispositivo.electrovalvulaId);
  
       this.mServ.getMedicionByDispositivoId(idDispositivo).then(med=>{
-        console.log(med.valor);
-        this.valorObtenido = Number(med.valor);
-        //this.muestraMedicion = true;
-        //llamo al update del chart para refrescar y mostrar el nuevo valor
+        if(med != null){
+     //     console.log(med.valor);
+          this.valorObtenido = Number(med.valor);
+          } 
+        else
+          this.valorObtenido = 0;
+
         this.generarChart();
-       /* this.myChart.update({series: [{
-          name: 'kPA',
-          data: [this.valorObtenido],
-          tooltip: {
-            valueSuffix: ' kPA'
-            }
-          }]
-        });*/
+
         this.eServ.getElectrovalvulaById(this.dispositivo.electrovalvulaId).then(elv=>{
           this.electrovalvula = elv[0];
-          console.log("El nombre de la electro es:" + this.electrovalvula.nombre);
+       ///   console.log("El nombre de la electro es:" + this.electrovalvula.nombre);
 
           this.rServ.getRiegoByElectrovalvulaId(this.electrovalvula.electrovalvulaId).then(rg =>{
-            this.riego = rg;
-            if (this.riego)
-              console.log("El estado de la electrovalvula es:" + this.riego.apertura);
+            if (this.riego != null)
+              this.riego = rg;
             else
-              console.log("El estado de la electrovalvula es: DESCONOCIDO");
+              this.riego = new Riego(99,"",0,0);
           });
         })
       });
     });
-
-    this.muestraMedicion = false;
-    this.muestraMediciones = false;
   }
 
   ionViewDidEnter() {
-
   
   }
 
-  MostrarMedicion(idDispositivo){
-    this.mServ.getMedicionByDispositivoId(idDispositivo).then(med=>{
-      this.medicion = med;
-      this.muestraMedicion = true;
-    })
-  }
-
-  MostrarMediciones(idDispositivo){
-    this.mServ.getMedicionesByDispositivoId(idDispositivo).then(med=>{
-      this.mediciones = med;
-      this.muestraMediciones = true;
-    })
-  }
-
- /* AgregarMedicion(idDispositivo){
-        //opción 1- utilizar libreria Momentjs , haciendo npm install --save moment y luego el import * as moment from 'moment'; en donde lo necesitemos.
-     
-     //let a : Medicion= new Medicion(99,moment().format("YYYY-MM-DD hh:mm:ss"),99,1);
-
-    //opción 2, utilizar el objeto Date y hacer el formato necesario a mano.
-   // let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() 
-    let a : Medicion= new Medicion(99,moment().format("YYYY-MM-DD hh:mm:ss"),this.valormed,idDispositivo);
-
-    this.mServ.setMedicionByDispositivoId(a).then(result=>{
-
-      console.log(result);
-
-      //llamo al update del chart para refrescar y mostrar el nuevo valor
-      this.myChart.update({series: [{
-        name: 'kPA',
-        data: [Number(this.valormed)],
-        tooltip: {
-          valueSuffix: ' kPA'
-          }
-        }]
-      });
-
-    });
-  }
-*/
   CambiarEstadoElectrovalvula(idElectrovalvula:number){
-      //opción 1- utilizar libreria Momentjs , haciendo npm install --save moment y luego el import * as moment from 'moment'; en donde lo necesitemos.
+    //opción 1- utilizar libreria Momentjs , haciendo npm install --save moment y luego el import * as moment from 'moment'; en donde lo necesitemos.
    
    //let a : Medicion= new Medicion(99,moment().format("YYYY-MM-DD hh:mm:ss"),99,1);
 
@@ -177,7 +104,7 @@ export class DispositivoPage implements OnInit {
 
   this.rServ.setRiegoByElectrovalvulaId(r).then(result=>{
     this.riego = r;
-    console.log(result);
+   // console.log(result);
     
     //Si se cierra la electrovalvula realizo un nuevo insert de una medicion
     if (this.riego.apertura == 0){
@@ -185,7 +112,7 @@ export class DispositivoPage implements OnInit {
       let m: Medicion = new Medicion(99,moment().format("YYYY-MM-DD hh:mm:ss"),Math.trunc(Math.random()*100),this.dispositivo.dispositivoId);
 
       this.mServ.setMedicionByDispositivoId(m).then(result=>{
-        console.log(result);
+      //  console.log(result);
         this.medicion = m;
         this.valorObtenido = this.medicion.valor;
         if (this.myChart != null){

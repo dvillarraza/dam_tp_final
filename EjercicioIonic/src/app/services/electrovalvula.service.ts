@@ -19,7 +19,7 @@ export class ElectrovalvulaService {
           return null;
       });
     }
-    
+  /*  
   getListado():Promise<Electrovalvula[]>{
     return this._http.get("http://localhost:3000/api/electrovalvula").toPromise().then((objeto:Electrovalvula[])=>{
       return objeto;
@@ -28,6 +28,6 @@ export class ElectrovalvulaService {
         return []; //new Dispositivo(1,"","",0);
     });
   //  return this.dispositivos.find(dispositivo => dispositivo.dispositivoId == paramId)
-  }
+  }*/
 
 }

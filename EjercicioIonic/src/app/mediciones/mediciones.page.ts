@@ -25,7 +25,8 @@ export class MedicionesPage implements OnInit {
       this.idDispositivo = this.router.snapshot.paramMap.get('id');
 
       this.dServ.getDispositivoById(this.idDispositivo).then((disp)=>{
-        this.dispositivo = disp[0]; //Se carga el dispositivo cuando llega la respuesta desde el backend
+          this.dispositivo = disp[0]; //Se carga el dispositivo cuando llega la respuesta desde el backend
+        
 
         this.MostrarMediciones(this.idDispositivo); //Se muestra la lsita de mediciones
       });

@@ -10,9 +10,8 @@ export class DispositivoService {
   constructor(private _http:HttpClient) {  //Nos resuelve las llamadas al back-end
  
   }
-
+//Obtengo un dispositivo con id=paramId
 getDispositivoById(paramId):Promise<Dispositivo>{
-  //  return this.dispositivos.find(dispositivo => dispositivo.dispositivoId == paramId)
     return this._http.get("http://localhost:3000/api/dispositivo/"+paramId).toPromise().then((objeto:Dispositivo)=>{
         return objeto;
     }).catch((err)=>{
@@ -20,7 +19,8 @@ getDispositivoById(paramId):Promise<Dispositivo>{
         return null;
     });
   }
-  
+
+//Obtengo la lista de dispositivos
 getListado():Promise<Dispositivo[]>{
   return this._http.get("http://localhost:3000/api/dispositivo").toPromise().then((objeto:Dispositivo[])=>{
     return objeto;
@@ -28,7 +28,6 @@ getListado():Promise<Dispositivo[]>{
       console.log("Error en la lectura")
       return []; //new Dispositivo(1,"","",0);
   });
-//  return this.dispositivos.find(dispositivo => dispositivo.dispositivoId == paramId)
 }
 
 }
