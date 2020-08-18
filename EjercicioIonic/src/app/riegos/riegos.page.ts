@@ -24,17 +24,18 @@ export class RiegosPage implements OnInit {
       
       this.idElectro = this.router.snapshot.paramMap.get('electroid');
       this.eServ.getElectrovalvulaById(this.idElectro).then(elv=>{
-        this.electrovalvula = elv[0];
-        this.MostrarRiegos(this.idElectro);
+        this.electrovalvula = elv[0]; //Se carga la electrovalvula cuando llega la respuesta desde el backend
+        this.MostrarRiegos(this.idElectro); //Se crea la lista de riegos de la electrovalvula
       });
   }
 
   ngOnInit() {
   }
 
+  //Funcion que carga la lista de riegos que se muestran en una tabla en el DOM
   MostrarRiegos(idElectrovalvula){
     this.rServ.getRiegosByElectrovalvulaId(idElectrovalvula).then(rg=>{
-      this.riegos = rg;
+      this.riegos = rg; //Lista de riegos que se muestra en el DOM
     })
   }
 

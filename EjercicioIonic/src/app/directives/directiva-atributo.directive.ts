@@ -3,6 +3,8 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 @Directive({
   selector: '[appDirectivaAtributo]'
 })
+
+//Directiva que cambuia el color de fondo cuando se pasa con el mouse sobre el elemento del DOM
 export class DirectivaAtributoDirective {
 
   constructor(private el:ElementRef) { 

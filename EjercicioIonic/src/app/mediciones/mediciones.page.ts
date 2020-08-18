@@ -26,21 +26,18 @@ export class MedicionesPage implements OnInit {
 
       this.dServ.getDispositivoById(this.idDispositivo).then((disp)=>{
           this.dispositivo = disp[0]; //Se carga el dispositivo cuando llega la respuesta desde el backend
-        
-
-        this.MostrarMediciones(this.idDispositivo); //Se muestra la lsita de mediciones
+          this.MostrarMediciones(this.idDispositivo); //Se carga la lista de mediciones
       });
   }
 
   ngOnInit() {
   }
 
-
+  //Funcion que carga la lista de mediciones que se muestran en una tabla en el DOM
   MostrarMediciones(idDispositivo){
     this.mServ.getMedicionesByDispositivoId(idDispositivo).then(med=>{
-      this.mediciones = med;
+      this.mediciones = med; //Lista de mediciones que se muestra en el DOM
     })
   }
-
 }
 

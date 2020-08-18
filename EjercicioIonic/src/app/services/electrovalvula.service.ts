@@ -11,23 +11,12 @@ export class ElectrovalvulaService {
 
 
   getElectrovalvulaById(paramId):Promise<Electrovalvula>{
-    //  return this.dispositivos.find(dispositivo => dispositivo.dispositivoId == paramId)
-      return this._http.get("http://localhost:3000/api/electrovalvula/"+paramId).toPromise().then((objeto:Electrovalvula)=>{
-          return objeto;
-      }).catch((err)=>{
-          console.log("Error en la lectura")
-          return null;
-      });
-    }
-  /*  
-  getListado():Promise<Electrovalvula[]>{
-    return this._http.get("http://localhost:3000/api/electrovalvula").toPromise().then((objeto:Electrovalvula[])=>{
-      return objeto;
+    return this._http.get("http://localhost:3000/api/electrovalvula/"+paramId).toPromise().then((objeto:Electrovalvula)=>{
+        return objeto;
     }).catch((err)=>{
         console.log("Error en la lectura")
-        return []; //new Dispositivo(1,"","",0);
+        return null;
     });
-  //  return this.dispositivos.find(dispositivo => dispositivo.dispositivoId == paramId)
-  }*/
+  }
 
 }

@@ -26,7 +26,7 @@ getListado():Promise<Dispositivo[]>{
     return objeto;
   }).catch((err)=>{
       console.log("Error en la lectura")
-      return []; //new Dispositivo(1,"","",0);
+      return null; //new Dispositivo(1,"","",0);
   });
 }
 

@@ -16,6 +16,8 @@ dispositivos:Array<Dispositivo>;
     //Cargo lista de dispositivos en el DOM
      listadodispositivos.getListado().then(disps=>{
       this.dispositivos = disps;
+     }).catch(err=>{
+       console.log("Error:" + err);
      });
 
   }

@@ -51,26 +51,25 @@ export class DispositivoPage implements OnInit {
 
     this.dServ.getDispositivoById(idDispositivo).then((disp)=>{
       this.dispositivo = disp[0]; //Se carga el dispositivo cuando llega la respuesta desde el backend
-     // console.log("Nombre del Dispositivo:" + this.dispositivo.dispositivoId);
-      //this.NombreSensor = this.dispositivo.nombre;//disp[0].nombre;
-     // console.log("El ID de la electro es:" + this.dispositivo.electrovalvulaId);
- 
+
+     //Obtengo la ultima muestra registrada para mostrar en el instrumento
       this.mServ.getMedicionByDispositivoId(idDispositivo).then(med=>{
         if(med != null){
-     //     console.log(med.valor);
           this.valorObtenido = Number(med.valor);
           } 
         else
           this.valorObtenido = 0;
 
+        //Creo el instrumento con el valor de la medicion leido de la base o en 0 si no hay medicion
         this.generarChart();
 
+        //Obtengo los datos de la electrovalvula
         this.eServ.getElectrovalvulaById(this.dispositivo.electrovalvulaId).then(elv=>{
           this.electrovalvula = elv[0];
-       ///   console.log("El nombre de la electro es:" + this.electrovalvula.nombre);
-
+          
+          //Obtengo el ultimo estado de la electrovalvula para indicar en el DOM el estado del suelo
           this.rServ.getRiegoByElectrovalvulaId(this.electrovalvula.electrovalvulaId).then(rg =>{
-            if (this.riego != null)
+            if (rg != null)
               this.riego = rg;
             else
               this.riego = new Riego(99,"",0,0);
@@ -85,35 +84,31 @@ export class DispositivoPage implements OnInit {
   }
 
   CambiarEstadoElectrovalvula(idElectrovalvula:number){
-    //opción 1- utilizar libreria Momentjs , haciendo npm install --save moment y luego el import * as moment from 'moment'; en donde lo necesitemos.
-   
-   //let a : Medicion= new Medicion(99,moment().format("YYYY-MM-DD hh:mm:ss"),99,1);
-
-  //opción 2, utilizar el objeto Date y hacer el formato necesario a mano.
- // let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() 
-  let nuevoestadoelv = 1; 
+     
+  let nuevoestadoelv = 1;
   
   if(this.riego != null){
-    if(this.riego.apertura)
-      nuevoestadoelv = 0;
+    if(this.riego.apertura) //Si la electrovalvula esta abierta 
+      nuevoestadoelv = 0; //Nuevo estado cerrada
     else
-      nuevoestadoelv = 1;
+      nuevoestadoelv = 1; //Nuevo estado abierta
   }
 
+  //Creo nuevo objeto riego con la fecha y hora actual y con el estado nuevo de la electrovalvula
   let r : Riego= new Riego(99,moment().format("YYYY-MM-DD hh:mm:ss"),nuevoestadoelv,idElectrovalvula);
 
+  //Inserto el nuevo riego en la base de datos
   this.rServ.setRiegoByElectrovalvulaId(r).then(result=>{
-    this.riego = r;
-   // console.log(result);
+    this.riego = r; 
     
     //Si se cierra la electrovalvula realizo un nuevo insert de una medicion
     if (this.riego.apertura == 0){
-
+      //Creo un nuevo obejto medicion con la fecha y hora actual y con un nuevo valor creado aleatoriamente
       let m: Medicion = new Medicion(99,moment().format("YYYY-MM-DD hh:mm:ss"),Math.trunc(Math.random()*100),this.dispositivo.dispositivoId);
-
+      //Insterto la nueva medicion en la base de datos
       this.mServ.setMedicionByDispositivoId(m).then(result=>{
-      //  console.log(result);
         this.medicion = m;
+        //Actualizo el valor que se muestra en el instrumento del DOM
         this.valorObtenido = this.medicion.valor;
         if (this.myChart != null){
           this.myChart.update({series: [{
@@ -129,6 +124,7 @@ export class DispositivoPage implements OnInit {
   });
   }
   
+  //Funcion llamada en el DOM para generar el instrumento 
   generarChart() {
     this.chartOptions={
       chart: {
@@ -139,7 +135,7 @@ export class DispositivoPage implements OnInit {
           plotShadow: false
         }
         ,title: {
-          text: "Humedad de la Tierra"//this.dispositivo.nombre //'Sensor N° 1'
+          text: "Tensiometro",
         }
 
         ,credits:{enabled:false}
