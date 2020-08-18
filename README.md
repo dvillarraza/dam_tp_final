@@ -1,5 +1,5 @@
 Autor: Diego Villarraza - Agsoto 2020
-## Introduccion
+## Introduccion 🚀
 
 Esta aplicación fue creada para el trabajo final de la asignatura Desarrollo de Aplicaciones Multiplataforma de la carrera de Especialización de Internet de las Cosas de FIUBA.
 
@@ -12,24 +12,25 @@ Esta aplicación fue creada para el trabajo final de la asignatura Desarrollo de
 * [Licencia](#licencia)
 
 ## 
-## Descripción de la aplicacion
+## Descripción de la aplicacion 📋
 Consta de dos partes:
-    - Una API en express alojada en un contenedor docker que se comunica con otro contendedor donde corre el servidor mysql con la base de datos. - La alpicacion principal desarrollada con Ionic Angular. 
+ * Una API en express alojada en un contenedor docker que se comunica con otro contendedor donde corre el servidor  mysql con la base de datos. 
+ * La alpicacion desarrollada con Ionic Angular. 
 
-Detalle del funcionamiento de la aplicacion:
-
-Consiste en la simulación de un sistema de riegos automatizado, la figura 1 muestra la pantalla principal de la aplicacion donde se muestra una lista de lo dispositivos utilizados en el riego. Ingresando en algun dispositivo se depliega la figura 2 donde se muestra el disositivos en particular informando en un instrumento la tension de la humedad del suelo y el estado del suelo, en el caso de ser requerido se puede abrir o cerrar la electrovalvula o ver la lista de mediciones hisotricas (figura 3) o la lista de riegos (figura 4).
+El funcionamiento de la aplicacion consiste en la simulación de un sistema de riegos automatizado, la figura 1 muestra la pantalla principal de la aplicacion donde se muestra una lista de lo dispositivos utilizados en el riego.
+Ingresando en algun dispositivo se depliega la figura 2 donde se muestra el disositivos en particular informando en un instrumento la tension de la humedad del suelo y el estado del suelo, en el caso de ser requerido se puede abrir o cerrar la electrovalvula o ver la lista de mediciones hisotricas (figura 3) o la lista de riegos (figura 4).
 
 ![arquitectura](doc/principal.png)
 
 ## 
-## Instalar dependencias
-La aplicacion necesita:
+## Instalar dependencias 🔧
+Para desplegar la aplicacion se necesita previamente tener instalado:
 * Docker (Pasos de la instalacion en [docmentacion oficial](https://docs.docker.com/get-docker/)).
 * Docker-Compose (Pasos de la instalacion en [docmentacion oficial](https://docs.docker.com/compose/install/)).
 * Ionic-Angular (Pasos de la instalacion en [docmentacion oficial](https://ionicframework.com/docs/intro/cli/)).
 
-## Correr la aplicación
+## 
+## Correr la aplicación 📦
 Primero se debe clonar el repositorio ejecutando:
 ```sh
 git clone https://github.com/dvillarraza/dam_tp_final.git
@@ -67,11 +68,14 @@ Si es necesario administar la base de datos con PHPMyAdmin desde un web browser 
 
 http://localhost:8085 
 
-Para detener la Api es necesario ejecutar el siguiente comando:
+Para detener la Api, parado en dam_tp_final/Api_Express es necesario ejecutar el siguiente comando:
 ```sh
 docker-compose down
 ```
-## Contribuir
+## 
+## Contribuir🎁
 Para contribuir realizar un pull request con las sugerencias.
-## Licencia
+
+## 
+## Licencia📄
 GPL
