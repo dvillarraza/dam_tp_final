@@ -4,22 +4,22 @@ var pool = require("../../mysql");
 
 
 RouterElectrovalvula.get("/", function(req, res){
-    //SELECT (consulta a la base de datos)
+    //Leo en la base de datos toda la lista de electrovalvulas
     pool.query("SELECT * FROM Electrovalvulas", function(err,result){
         if(err){
-            res.send(err);
+            res.status(400).send(err);
         }
         res.send(result);
     });    
 });
 
 RouterElectrovalvula.get("/:electrovalvulaId", function(req, res){
-    //SELECT (consulta a la base de datos)
+   //Leo en la base de datos la electrovalvula con el id pasado como parametro
     pool.query("SELECT * FROM Electrovalvulas WHERE electrovalvulaId=?", [req.params.electrovalvulaId], function(err,result){
         if(err){
-            res.send(err);
+            res.status(400).send(err);
         }
-        res.send(result);
+        res.send(result[0]);
     });    
 });
 

@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express() //Nuestra app tiene todo el objeto de express
-var PORT = 3000;
+var PORT = 3000; 
 var routerDispositivo = require("./routes/dispositivo");
 var routerMedicion = require("./routes/medicion");
 var RouterElectrovalvula = require("./routes/electrovalvula");
@@ -16,7 +16,7 @@ app.use(cors(CorsConfig)); //Aplico un meadllweare de terceros (cors)
 
 app.use(express.json());
 
-app.use("/api/dispositivo",routerDispositivo)
+app.use("/api/dispositivo",routerDispositivo)  
 
 app.use("/api/medicion",routerMedicion)
 
