@@ -1,15 +1,15 @@
-Autor: Diego Villarraza - 2020
+Autor: Diego Villarraza - Agsoto 2020
 ## Introduccion
 
 Esta aplicación fue creada para el trabajo final de la asignatura Desarrollo de Aplicaciones Multiplataforma de la carrera de Especialización de Internet de las Cosas de FIUBA.
 
 ## 
 ## Tabla de contenido
-* [Descripcion de la aplicacion](#descripción-aplicacion)
-* [Instalar dependencias](#isntalar-dependencias)
+* [Descripcion de la aplicacion](#descripción-de-la-aplicacion)
+* [Instalar dependencias](#instalar-dependencias)
 * [Correr la aplicación](#correr-la-aplicación)
-* [¿Quieres ayudar?] (# Quieres-ayudar-?)
-* [Licencia] (# licencia)
+* [Contribuir](#contribuir)
+* [Licencia](#licencia)
 
 ## 
 ## Descripción de la aplicacion
@@ -25,11 +25,16 @@ Consiste en la simulación de un sistema de riegos automatizado, la figura 1 mue
 ## 
 ## Instalar dependencias
 La aplicacion necesita:
-* Docker (installation steps in [official documentation](https://docs.docker.com/get-docker/)).
-* Docker-Compose (installation steps in [official documentation](https://docs.docker.com/compose/install/)).
+* Docker (Pasos de la instalacion en [docmentacion oficial](https://docs.docker.com/get-docker/)).
+* Docker-Compose (Pasos de la instalacion en [docmentacion oficial](https://docs.docker.com/compose/install/)).
+* Ionic-Angular (Pasos de la instalacion en [docmentacion oficial](https://ionicframework.com/docs/intro/cli/)).
 
-# Correr la aplicación
-Para correr la aplicación es necesario ejecutar el siguiente comando:
+## Correr la aplicación
+Despues de clonar el repositorio se debe ir a la carpeta Api_Express:
+```sh
+cd dam_tp_final/Api_Express
+```
+Para correr la Api es necesario ejecutar el siguiente comando:
 ```sh
 docker-compose up
 ```
@@ -46,7 +51,7 @@ Para detener la aplicación es necesario ejecutar el siguiente comando:
 docker-compose down
 ```
 
-# Contribuir
+## Contribuir
 Para contribuir realizar un pull request con las sugerencias.
-# Licencia
+## Licencia
 GPL

@@ -41,8 +41,6 @@ export class DispositivoPage implements OnInit {
     private mServ:MedicionService, 
     private eServ:ElectrovalvulaService,
     private rServ:RiegoService) {
-
-
    }
 
   ngOnInit() {
@@ -50,7 +48,7 @@ export class DispositivoPage implements OnInit {
     let idDispositivo = this.router.snapshot.paramMap.get('id');
 
     this.dServ.getDispositivoById(idDispositivo).then((disp)=>{
-      this.dispositivo = disp[0]; //Se carga el dispositivo cuando llega la respuesta desde el backend
+      this.dispositivo = disp; //Se carga el dispositivo cuando llega la respuesta desde el backend
 
      //Obtengo la ultima muestra registrada para mostrar en el instrumento
       this.mServ.getMedicionByDispositivoId(idDispositivo).then(med=>{
@@ -65,8 +63,8 @@ export class DispositivoPage implements OnInit {
 
         //Obtengo los datos de la electrovalvula
         this.eServ.getElectrovalvulaById(this.dispositivo.electrovalvulaId).then(elv=>{
-          this.electrovalvula = elv[0];
-          
+          this.electrovalvula = elv;
+
           //Obtengo el ultimo estado de la electrovalvula para indicar en el DOM el estado del suelo
           this.rServ.getRiegoByElectrovalvulaId(this.electrovalvula.electrovalvulaId).then(rg =>{
             if (rg != null)
@@ -101,7 +99,7 @@ export class DispositivoPage implements OnInit {
   this.rServ.setRiegoByElectrovalvulaId(r).then(result=>{
     this.riego = r; 
     
-    //Si se cierra la electrovalvula realizo un nuevo insert de una medicion
+    //Si se CIERRA la electrovalvula realizo un nuevo insert de una medicion
     if (this.riego.apertura == 0){
       //Creo un nuevo obejto medicion con la fecha y hora actual y con un nuevo valor creado aleatoriamente
       let m: Medicion = new Medicion(99,moment().format("YYYY-MM-DD hh:mm:ss"),Math.trunc(Math.random()*100),this.dispositivo.dispositivoId);

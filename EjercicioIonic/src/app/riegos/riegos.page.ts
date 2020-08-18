@@ -24,7 +24,7 @@ export class RiegosPage implements OnInit {
       
       this.idElectro = this.router.snapshot.paramMap.get('electroid');
       this.eServ.getElectrovalvulaById(this.idElectro).then(elv=>{
-        this.electrovalvula = elv[0]; //Se carga la electrovalvula cuando llega la respuesta desde el backend
+        this.electrovalvula = elv; //Se carga la electrovalvula cuando llega la respuesta desde el backend
         this.MostrarRiegos(this.idElectro); //Se crea la lista de riegos de la electrovalvula
       });
   }
