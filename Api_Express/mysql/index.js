@@ -14,15 +14,14 @@ pool.getConnection((err, conexion)=>{
     if(err){
         switch(err.code){
             case 'PROTOCOL_CONEXION_LOST':
-                console.log("Se cerro la conexion");
+                console.log("La conexio a la DB se cerró.");
                 break;
             case 'ER_CON_COUNT_ERROR':
-                console.log("Tiene muchas conexiones");
+                console.log("La base de datos tiene muchas conexiones");
                 break;
             case 'ECONNREFUSED':
-                console.log("Algo cnofigure mal");
+                console.log("LA conexión fue rechazada");
                 break;
-            
         }
     }
     if (conexion){
