@@ -15,10 +15,10 @@ Esta aplicación fue creada para el trabajo final de la asignatura Desarrollo de
 ## Descripción de la aplicacion 📋
 Consta de dos partes:
  * Una API en express alojada en un contenedor docker que se comunica con otro contendedor donde corre el servidor  mysql con la base de datos. 
- * La alpicacion desarrollada con Ionic Angular. 
+ * Una alpicación desarrollada con Ionic. 
 
-El funcionamiento de la aplicacion consiste en la simulación de un sistema de riegos automatizado, la figura 1 muestra la pantalla principal de la aplicacion donde se muestra una lista de lo dispositivos utilizados en el riego.
-Ingresando en algun dispositivo se depliega la figura 2 donde se muestra el disositivos en particular informando en un instrumento la tension de la humedad del suelo y el estado del suelo, en el caso de ser requerido se puede abrir o cerrar la electrovalvula o ver la lista de mediciones hisotricas (figura 3) o la lista de riegos (figura 4).
+La aplicacion simula un sistema de riegos automatizado, la figura 1 es la pantalla principal de la aplicacion donde se muestra una lista de lo dispositivos utilizados para medir el estado del suelo.
+Ingresando en algun dispositivo se depliega la figura 2 donde se muestra el disositivos en particular informando en un instrumento la tension de la humedad del suelo y el estado del suelo, en el caso de ser requerido se puede abrir o cerrar la electrovalvula de riego o ver la lista de mediciones hisotricas (figura 3) o la lista de riegos (figura 4).
 
 ![arquitectura](doc/principal.png)
 
